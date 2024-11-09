@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo de Multas</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('https://thumbs.dreamstime.com/b/gray-plastic-background-close-up-190200742.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            filter: brightness(0.8); /* Opacidad en la imagen de fondo */
+            color: white; /* Texto en blanco */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: #F4B400; /* Color amarillo */
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .logo {
+            width: 60px; /* Tamaño ajustado */
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin-top: 20px;
+            background-color: rgba(0, 0, 0, 0.7); /* Fondo opaco negro */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .multa-box {
+            background-color: white;
+            color: black; /* Texto negro en el contenido */
+            padding: 20px;
+            margin: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .multa-box h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #333;
+        }
+
+        button {
+            background-color: #F4B400; /* Botones en amarillo */
+            color: white;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e6a623;
+        }
+
+        .info {
+            font-size: 18px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .video-button {
+            background-color: #F4B400; /* Mismo amarillo */
+        }
+
+        .video-button:hover {
+            background-color: #e6a623;
+        }
+
+        .back-button {
+            background-color: #F4B400;
+            margin-top: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #e6a623;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://www.shareicon.net/data/2017/03/10/881071_tool_512x512.png" alt="Logo del sistema" class="logo"> <!-- Cambia la ruta de la imagen por la correcta -->
+        Módulo de Multas en Guatemala
+    </header>
+
+    <div class="container">
+        <!-- Multa 1 -->
+        <div class="multa-box">
+            <h3>Multa por no portar licencia de conducir</h3>
+            <button onclick="mostrarInfo(1)">¿Por qué y cuánto debo pagar?</button>
+            <p id="info1" class="info">No portar licencia de conducir al momento de un control vehicular se sanciona con una multa de Q500.</p>
+        </div>
+
+        <!-- Multa 2 -->
+        <div class="multa-box">
+            <h3>Multa por exceso de velocidad</h3>
+            <button onclick="mostrarInfo(2)">¿Por qué y cuánto debo pagar?</button>
+            <p id="info2" class="info">Superar el límite de velocidad permitido conlleva una multa de Q1,000.</p>
+        </div>
+
+        <!-- Multa 3 -->
+        <div class="multa-box">
+            <h3>Multa por conducir en estado de ebriedad</h3>
+            <button onclick="mostrarInfo(3)">¿Por qué y cuánto debo pagar?</button>
+            <p id="info3" class="info">Conducir bajo los efectos del alcohol puede resultar en una multa de Q5,000 y la suspensión de la licencia.</p>
+        </div>
+
+        <!-- Multa 4 (Ajustado) -->
+        <div class="multa-box">
+            <h3>Multa por no usar cinturón de seguridad</h3>
+            <button onclick="mostrarInfo(4)">¿Por qué y cuánto debo pagar?</button>
+            <p id="info4" class="info">No usar cinturón de seguridad mientras se conduce conlleva una multa de Q200.</p>
+        </div>
+
+        <!-- Multa 5 (Ajustado) -->
+        <div class="multa-box">
+            <h3>Multa por estacionarse en un lugar prohibido</h3>
+            <button onclick="mostrarInfo(5)">¿Por qué y cuánto debo pagar?</button>
+            <p id="info5" class="info">Estacionarse en áreas no autorizadas conlleva una multa de Q500.</p>
+        </div>
+
+        <!-- Multa 6 (Ajustado) -->
+        <div class="multa-box">
+            <h3>Multa por hablar por teléfono mientras se conduce</h3>
+            <button onclick="mostrarInfo(6)">¿Por qué y cuánto debo pagar?</button>
+            <p id="info6" class="info">Utilizar el teléfono móvil mientras se conduce sin manos libres conlleva una multa de Q400.</p>
+        </div>
+
+        <!-- Multa 7 (Ajustado) -->
+        <div class="multa-box">
+            <h3>Multa por no respetar la luz roja del semáforo</h3>
+            <button onclick="mostrarInfo(7)">¿Por qué y cuánto debo pagar?</button>
+            <p id="info7" class="info">Pasarse un semáforo en rojo resulta en una multa de Q800.</p>
+        </div>
+
+        <!-- Multa 8 (Ajustado) -->
+        <div class="multa-box">
+            <h3>Multa por llevar sobrecupo en el vehículo</h3>
+            <button onclick="mostrarInfo(8)">¿Por qué y cuánto debo pagar?</button>
+            <p id="info8" class="info">Llevar más pasajeros de los permitidos por el tipo de vehículo conlleva una multa de Q1,000.</p>
+        </div>
+
+        <!-- Multa 9 (Ajustado) -->
+        <div class="multa-box">
+            <h3>Multa por no respetar los pasos de peatones</h3>
+            <button onclick="mostrarInfo(9)">¿Por qué y cuánto debo pagar?</button>
+            <p id="info9" class="info">No detenerse para permitir el paso a los peatones en los pasos de cebra conlleva una multa de Q600.</p>
+        </div>
+
+        <!-- Multa 10 (Ajustado) -->
+        <div class="multa-box">
+            <h3>Multa por conducir sin revisión técnica vehicular</h3>
+            <button onclick="mostrarInfo(10)">¿Por qué y cuánto debo pagar?</button>
+            <p id="info10" class="info">Circular sin la revisión técnica vehicular actualizada conlleva una multa de Q300.</p>
+        </div>
+
+    <!-- Multa 11 -->
+<div class="multa-box">
+    <h3>Multa por no respetar señales de tránsito</h3>
+    <button onclick="mostrarInfo(11)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info11" class="info">No respetar las señales de tránsito conlleva una multa de Q1,500.</p>
+</div>
+
+<!-- Multa 12 -->
+<div class="multa-box">
+    <h3>Multa por circular sin luces en la noche</h3>
+    <button onclick="mostrarInfo(12)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info12" class="info">Circular sin luces en horario nocturno conlleva una multa de Q700.</p>
+</div>
+
+<!-- Multa 13 -->
+<div class="multa-box">
+    <h3>Multa por adelantar en curva</h3>
+    <button onclick="mostrarInfo(13)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info13" class="info">Adelantar en curvas o zonas peligrosas conlleva una multa de Q1,000.</p>
+</div>
+
+<!-- Multa 14 -->
+<div class="multa-box">
+    <h3>Multa por no llevar triángulos de seguridad</h3>
+    <button onclick="mostrarInfo(14)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info14" class="info">No llevar triángulos de seguridad en el vehículo conlleva una multa de Q400.</p>
+</div>
+
+<!-- Multa 15 -->
+<div class="multa-box">
+    <h3>Multa por no detenerse ante un paso peatonal</h3>
+    <button onclick="mostrarInfo(15)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info15" class="info">No detenerse ante un paso peatonal conlleva una multa de Q800.</p>
+</div>
+
+<!-- Multa 16 -->
+<div class="multa-box">
+    <h3>Multa por no respetar el carril exclusivo de buses</h3>
+    <button onclick="mostrarInfo(16)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info16" class="info">No respetar el carril exclusivo para buses conlleva una multa de Q600.</p>
+</div>
+
+<!-- Multa 17 -->
+<div class="multa-box">
+    <h3>Multa por no llevar extintor de incendio</h3>
+    <button onclick="mostrarInfo(17)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info17" class="info">No llevar extintor de incendios en el vehículo conlleva una multa de Q500.</p>
+</div>
+
+<!-- Multa 18 -->
+<div class="multa-box">
+    <h3>Multa por usar audífonos mientras se conduce</h3>
+    <button onclick="mostrarInfo(18)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info18" class="info">Usar audífonos mientras se conduce conlleva una multa de Q300.</p>
+</div>
+
+<!-- Multa 19 -->
+<div class="multa-box">
+    <h3>Multa por invadir el carril contrario</h3>
+    <button onclick="mostrarInfo(19)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info19" class="info">Invadir el carril contrario puede resultar en una multa de Q1,200.</p>
+</div>
+
+<!-- Multa 20 -->
+<div class="multa-box">
+    <h3>Multa por utilizar el claxon de manera excesiva</h3>
+    <button onclick="mostrarInfo(20)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info20" class="info">Usar el claxon de manera excesiva o innecesaria conlleva una multa de Q200.</p>
+</div>
+<!-- Multa 21 -->
+<div class="multa-box">
+    <h3>Multa por conducir sin documentos del vehículo</h3>
+    <button onclick="mostrarInfo(21)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info21" class="info">Conducir sin portar los documentos obligatorios del vehículo conlleva una multa de Q500.</p>
+</div>
+
+<!-- Multa 22 -->
+<div class="multa-box">
+    <h3>Multa por realizar maniobras imprudentes</h3>
+    <button onclick="mostrarInfo(22)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info22" class="info">Realizar maniobras imprudentes al conducir, como giros bruscos, conlleva una multa de Q700.</p>
+</div>
+
+<!-- Multa 23 -->
+<div class="multa-box">
+    <h3>Multa por conducir vehículos con llantas desgastadas</h3>
+    <button onclick="mostrarInfo(23)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info23" class="info">Conducir vehículos con llantas en mal estado conlleva una multa de Q300.</p>
+</div>
+
+<!-- Multa 24 -->
+<div class="multa-box">
+    <h3>Multa por no respetar la distancia de seguridad entre vehículos</h3>
+    <button onclick="mostrarInfo(24)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info24" class="info">No respetar la distancia de seguridad entre vehículos conlleva una multa de Q500.</p>
+</div>
+
+<!-- Multa 25 -->
+<div class="multa-box">
+    <h3>Multa por obstruir la vía pública con un vehículo</h3>
+    <button onclick="mostrarInfo(25)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info25" class="info">Obstruir la vía pública con un vehículo estacionado indebidamente conlleva una multa de Q1,000.</p>
+</div>
+
+<!-- Multa 26 -->
+<div class="multa-box">
+    <h3>Multa por no llevar el equipo de seguridad en el vehículo</h3>
+    <button onclick="mostrarInfo(26)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info26" class="info">No llevar equipo de seguridad obligatorio, como triángulo reflectante, conlleva una multa de Q400.</p>
+</div>
+
+<!-- Multa 27 -->
+<div class="multa-box">
+    <h3>Multa por sobrepasar en línea continua</h3>
+    <button onclick="mostrarInfo(27)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info27" class="info">Sobrepasar a otro vehículo en una línea continua conlleva una multa de Q800.</p>
+</div>
+
+<!-- Multa 28 -->
+<div class="multa-box">
+    <h3>Multa por no usar luces direccionales</h3>
+    <button onclick="mostrarInfo(28)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info28" class="info">No usar las luces direccionales al girar o cambiar de carril conlleva una multa de Q200.</p>
+</div>
+
+<!-- Multa 29 -->
+<div class="multa-box">
+    <h3>Multa por obstruir una intersección</h3>
+    <button onclick="mostrarInfo(29)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info29" class="info">Obstruir una intersección con el vehículo conlleva una multa de Q600.</p>
+</div>
+
+<!-- Multa 30 -->
+<div class="multa-box">
+    <h3>Multa por conducir sin inspección técnica vehicular vigente</h3>
+    <button onclick="mostrarInfo(30)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info30" class="info">Conducir un vehículo sin la inspección técnica vehicular vigente conlleva una multa de Q1,200.</p>
+</div>
+<!-- Multa 31 -->
+<div class="multa-box">
+    <h3>Multa por circular con vidrios polarizados sin autorización</h3>
+    <button onclick="mostrarInfo(31)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info31" class="info">Circular con vidrios polarizados sin la debida autorización conlleva una multa de Q900.</p>
+</div>
+
+<!-- Multa 32 -->
+<div class="multa-box">
+    <h3>Multa por invadir carriles exclusivos para transporte público</h3>
+    <button onclick="mostrarInfo(32)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info32" class="info">Invadir carriles exclusivos para transporte público conlleva una multa de Q1,000.</p>
+</div>
+
+<!-- Multa 33 -->
+<div class="multa-box">
+    <h3>Multa por no llevar los retrovisores en buen estado</h3>
+    <button onclick="mostrarInfo(33)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info33" class="info">Circular con retrovisores dañados o sin ellos conlleva una multa de Q400.</p>
+</div>
+
+<!-- Multa 34 -->
+<div class="multa-box">
+    <h3>Multa por no respetar las señales de tránsito en obras viales</h3>
+    <button onclick="mostrarInfo(34)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info34" class="info">No respetar las señales temporales en obras viales conlleva una multa de Q600.</p>
+</div>
+
+<!-- Multa 35 -->
+<div class="multa-box">
+    <h3>Multa por conducir motocicletas sin casco</h3>
+    <button onclick="mostrarInfo(35)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info35" class="info">Conducir motocicletas sin utilizar casco protector conlleva una multa de Q500.</p>
+</div>
+
+<!-- Multa 36 -->
+<div class="multa-box">
+    <h3>Multa por no respetar zonas escolares</h3>
+    <button onclick="mostrarInfo(36)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info36" class="info">No reducir la velocidad o no respetar las señales en zonas escolares conlleva una multa de Q700.</p>
+</div>
+
+<!-- Multa 37 -->
+<div class="multa-box">
+    <h3>Multa por manejar vehículos con luces inadecuadas</h3>
+    <button onclick="mostrarInfo(37)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info37" class="info">Circular con luces dañadas o inadecuadas, como luces altas en zonas urbanas, conlleva una multa de Q400.</p>
+</div>
+
+<!-- Multa 38 -->
+<div class="multa-box">
+    <h3>Multa por transportar mercancía sin la debida autorización</h3>
+    <button onclick="mostrarInfo(38)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info38" class="info">Transportar mercancía sin los permisos correspondientes conlleva una multa de Q1,500.</p>
+</div>
+
+<!-- Multa 39 -->
+<div class="multa-box">
+    <h3>Multa por no tener la tarjeta de circulación al día</h3>
+    <button onclick="mostrarInfo(39)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info39" class="info">Conducir sin tener la tarjeta de circulación al día conlleva una multa de Q300.</p>
+</div>
+
+<!-- Multa 40 -->
+<div class="multa-box">
+    <h3>Multa por estacionarse en zonas no permitidas durante horas pico</h3>
+    <button onclick="mostrarInfo(40)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info40" class="info">Estacionarse en zonas no permitidas durante horas pico conlleva una multa de Q1,000.</p>
+</div>
+<!-- Multa 41 -->
+<div class="multa-box">
+    <h3>Multa por estacionarse en lugares para emergencias</h3>
+    <button onclick="mostrarInfo(41)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info41" class="info">Estacionarse en zonas destinadas para vehículos de emergencia conlleva una multa de Q1,200.</p>
+</div>
+
+<!-- Multa 42 -->
+<div class="multa-box">
+    <h3>Multa por no llevar la licencia vigente</h3>
+    <button onclick="mostrarInfo(42)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info42" class="info">Conducir con una licencia vencida conlleva una multa de Q500.</p>
+</div>
+
+<!-- Multa 43 -->
+<div class="multa-box">
+    <h3>Multa por utilizar el claxon de manera inadecuada</h3>
+    <button onclick="mostrarInfo(43)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info43" class="info">Usar el claxon en zonas restringidas o de forma inadecuada conlleva una multa de Q300.</p>
+</div>
+
+<!-- Multa 44 -->
+<div class="multa-box">
+    <h3>Multa por invadir cruces peatonales</h3>
+    <button onclick="mostrarInfo(44)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info44" class="info">Invadir cruces peatonales conlleva una multa de Q800.</p>
+</div>
+
+<!-- Multa 45 -->
+<div class="multa-box">
+    <h3>Multa por circular en contravía</h3>
+    <button onclick="mostrarInfo(45)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info45" class="info">Circular en contravía conlleva una multa de Q1,500.</p>
+</div>
+
+<!-- Multa 46 -->
+<div class="multa-box">
+    <h3>Multa por no respetar las señales de alto</h3>
+    <button onclick="mostrarInfo(46)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info46" class="info">No respetar las señales de alto conlleva una multa de Q700.</p>
+</div>
+
+<!-- Multa 47 -->
+<div class="multa-box">
+    <h3>Multa por no utilizar las luces direccionales</h3>
+    <button onclick="mostrarInfo(47)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info47" class="info">No utilizar las luces direccionales al cambiar de carril o al girar conlleva una multa de Q500.</p>
+</div>
+
+<!-- Multa 48 -->
+<div class="multa-box">
+    <h3>Multa por sobrecargar el vehículo</h3>
+    <button onclick="mostrarInfo(48)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info48" class="info">Circular con una carga que exceda el límite permitido conlleva una multa de Q1,000.</p>
+</div>
+
+<!-- Multa 49 -->
+<div class="multa-box">
+    <h3>Multa por realizar maniobras peligrosas</h3>
+    <button onclick="mostrarInfo(49)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info49" class="info">Realizar maniobras peligrosas o temerarias mientras se conduce conlleva una multa de Q2,000.</p>
+</div>
+
+<!-- Multa 50 -->
+<div class="multa-box">
+    <h3>Multa por no ceder el paso a vehículos de emergencia</h3>
+    <button onclick="mostrarInfo(50)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info50" class="info">No ceder el paso a vehículos de emergencia conlleva una multa de Q1,800.</p>
+</div>
+<!-- Multa 51 -->
+<div class="multa-box">
+    <h3>Multa por circular con llantas en mal estado</h3>
+    <button onclick="mostrarInfo(51)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info51" class="info">Circular con llantas en mal estado conlleva una multa de Q900.</p>
+</div>
+
+<!-- Multa 52 -->
+<div class="multa-box">
+    <h3>Multa por falta de equipo de seguridad en motocicletas</h3>
+    <button onclick="mostrarInfo(52)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info52" class="info">Conducir motocicletas sin casco o equipo de seguridad obligatorio conlleva una multa de Q500.</p>
+</div>
+
+<!-- Multa 53 -->
+<div class="multa-box">
+    <h3>Multa por falta de luces traseras</h3>
+    <button onclick="mostrarInfo(53)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info53" class="info">Circular sin luces traseras en funcionamiento conlleva una multa de Q600.</p>
+</div>
+
+<!-- Multa 54 -->
+<div class="multa-box">
+    <h3>Multa por falta de uso de luces en zonas oscuras</h3>
+    <button onclick="mostrarInfo(54)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info54" class="info">No encender las luces del vehículo en zonas oscuras o de baja visibilidad conlleva una multa de Q400.</p>
+</div>
+
+<!-- Multa 55 -->
+<div class="multa-box">
+    <h3>Multa por circular con el permiso de circulación vencido</h3>
+    <button onclick="mostrarInfo(55)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info55" class="info">Circular con el permiso de circulación vencido conlleva una multa de Q1,500.</p>
+</div>
+
+<!-- Multa 56 -->
+<div class="multa-box">
+    <h3>Multa por no respetar los límites de altura y peso</h3>
+    <button onclick="mostrarInfo(56)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info56" class="info">No respetar los límites de altura y peso en puentes y túneles conlleva una multa de Q2,000.</p>
+</div>
+
+<!-- Multa 57 -->
+<div class="multa-box">
+    <h3>Multa por transportar mercancías peligrosas sin permiso</h3>
+    <button onclick="mostrarInfo(57)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info57" class="info">Transportar mercancías peligrosas sin el permiso correspondiente conlleva una multa de Q3,000.</p>
+</div>
+
+<!-- Multa 58 -->
+<div class="multa-box">
+    <h3>Multa por no tener un extintor a bordo</h3>
+    <button onclick="mostrarInfo(58)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info58" class="info">Circular sin un extintor de incendios en el vehículo conlleva una multa de Q700.</p>
+</div>
+
+<!-- Multa 59 -->
+<div class="multa-box">
+    <h3>Multa por no tener los espejos retrovisores en condiciones</h3>
+    <button onclick="mostrarInfo(59)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info59" class="info">Circular sin los espejos retrovisores en condiciones adecuadas conlleva una multa de Q500.</p>
+</div>
+
+<!-- Multa 60 -->
+<div class="multa-box">
+    <h3>Multa por circular con gases contaminantes excesivos</h3>
+    <button onclick="mostrarInfo(60)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info60" class="info">Circular con un vehículo que emita gases contaminantes en exceso conlleva una multa de Q1,200.</p>
+</div>
+<!-- Multa 61 -->
+<div class="multa-box">
+    <h3>Multa por falta de uso de luces direccionales</h3>
+    <button onclick="mostrarInfo(61)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info61" class="info">No utilizar las luces direccionales para cambiar de carril o girar conlleva una multa de Q500.</p>
+</div>
+
+<!-- Multa 62 -->
+<div class="multa-box">
+    <h3>Multa por conducir sin los documentos del vehículo</h3>
+    <button onclick="mostrarInfo(62)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info62" class="info">Conducir sin llevar los documentos del vehículo (tarjeta de circulación) conlleva una multa de Q600.</p>
+</div>
+
+<!-- Multa 63 -->
+<div class="multa-box">
+    <h3>Multa por no respetar las señales de tránsito verticales</h3>
+    <button onclick="mostrarInfo(63)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info63" class="info">No respetar las señales de tránsito verticales, como "Pare" o "Ceda el paso", conlleva una multa de Q400.</p>
+</div>
+
+<!-- Multa 64 -->
+<div class="multa-box">
+    <h3>Multa por circular en carril exclusivo para transporte público</h3>
+    <button onclick="mostrarInfo(64)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info64" class="info">Circular en carriles exclusivos para buses o transporte público conlleva una multa de Q700.</p>
+</div>
+
+<!-- Multa 65 -->
+<div class="multa-box">
+    <h3>Multa por circular sin casco en motocicleta</h3>
+    <button onclick="mostrarInfo(65)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info65" class="info">Circular en motocicleta sin casco de seguridad conlleva una multa de Q400.</p>
+</div>
+
+<!-- Multa 66 -->
+<div class="multa-box">
+    <h3>Multa por circular sin vidrios en buen estado</h3>
+    <button onclick="mostrarInfo(66)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info66" class="info">Circular con los vidrios del vehículo rotos o en mal estado conlleva una multa de Q500.</p>
+</div>
+
+<!-- Multa 67 -->
+<div class="multa-box">
+    <h3>Multa por sobrepasar en línea continua</h3>
+    <button onclick="mostrarInfo(67)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info67" class="info">Sobrepasar otro vehículo en línea continua conlleva una multa de Q1,200.</p>
+</div>
+
+<!-- Multa 68 -->
+<div class="multa-box">
+    <h3>Multa por no respetar señales luminosas</h3>
+    <button onclick="mostrarInfo(68)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info68" class="info">No respetar las señales luminosas del semáforo, como la luz roja, conlleva una multa de Q800.</p>
+</div>
+
+<!-- Multa 69 -->
+<div class="multa-box">
+    <h3>Multa por conducir sin luces en carretera</h3>
+    <button onclick="mostrarInfo(69)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info69" class="info">Conducir sin luces en funcionamiento en carreteras conlleva una multa de Q900.</p>
+</div>
+
+<!-- Multa 70 -->
+<div class="multa-box">
+    <h3>Multa por no respetar zonas escolares</h3>
+    <button onclick="mostrarInfo(70)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info70" class="info">No respetar los límites de velocidad o señalización en zonas escolares conlleva una multa de Q1,500.</p>
+</div>
+<!-- Multa 71 -->
+<div class="multa-box">
+    <h3>Multa por uso indebido de claxon en áreas urbanas</h3>
+    <button onclick="mostrarInfo(71)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info71" class="info">Utilizar el claxon de forma innecesaria en áreas urbanas conlleva una multa de Q200.</p>
+</div>
+
+<!-- Multa 72 -->
+<div class="multa-box">
+    <h3>Multa por no respetar las señales de advertencia</h3>
+    <button onclick="mostrarInfo(72)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info72" class="info">No respetar las señales de advertencia (como curvas peligrosas o zonas de desvío) conlleva una multa de Q600.</p>
+</div>
+
+<!-- Multa 73 -->
+<div class="multa-box">
+    <h3>Multa por circular sin luces encendidas de noche</h3>
+    <button onclick="mostrarInfo(73)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info73" class="info">Circular de noche sin luces encendidas conlleva una multa de Q700.</p>
+</div>
+
+<!-- Multa 74 -->
+<div class="multa-box">
+    <h3>Multa por uso de vidrios polarizados sin autorización</h3>
+    <button onclick="mostrarInfo(74)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info74" class="info">Usar vidrios polarizados sin la autorización correspondiente conlleva una multa de Q1,000.</p>
+</div>
+
+<!-- Multa 75 -->
+<div class="multa-box">
+    <h3>Multa por realizar giros prohibidos</h3>
+    <button onclick="mostrarInfo(75)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info75" class="info">Realizar giros prohibidos, como un giro en U en zonas no autorizadas, conlleva una multa de Q500.</p>
+</div>
+
+<!-- Multa 76 -->
+<div class="multa-box">
+    <h3>Multa por no respetar las señales de límite de altura</h3>
+    <button onclick="mostrarInfo(76)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info76" class="info">No respetar las señales que indican límite de altura en pasos elevados conlleva una multa de Q800.</p>
+</div>
+
+<!-- Multa 77 -->
+<div class="multa-box">
+    <h3>Multa por circular sin cinturón de seguridad en el asiento trasero</h3>
+    <button onclick="mostrarInfo(77)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info77" class="info">Circular sin que los pasajeros del asiento trasero usen cinturón de seguridad conlleva una multa de Q300.</p>
+</div>
+
+<!-- Multa 78 -->
+<div class="multa-box">
+    <h3>Multa por exceso de carga en vehículos pesados</h3>
+    <button onclick="mostrarInfo(78)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info78" class="info">Transportar una carga superior al límite permitido para vehículos pesados conlleva una multa de Q2,000.</p>
+</div>
+
+<!-- Multa 79 -->
+<div class="multa-box">
+    <h3>Multa por estacionarse en doble fila</h3>
+    <button onclick="mostrarInfo(79)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info79" class="info">Estacionarse en doble fila conlleva una multa de Q500.</p>
+</div>
+
+<!-- Multa 80 -->
+<div class="multa-box">
+    <h3>Multa por no reducir la velocidad en zonas residenciales</h3>
+    <button onclick="mostrarInfo(80)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info80" class="info">No reducir la velocidad en zonas residenciales conlleva una multa de Q700.</p>
+</div>
+<!-- Multa 81 -->
+<div class="multa-box">
+    <h3>Multa por no ceder el paso en una intersección</h3>
+    <button onclick="mostrarInfo(81)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info81" class="info">No ceder el paso en una intersección puede conllevar una multa de Q800.</p>
+</div>
+
+<!-- Multa 82 -->
+<div class="multa-box">
+    <h3>Multa por conducir sin luces intermitentes en emergencia</h3>
+    <button onclick="mostrarInfo(82)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info82" class="info">Conducir sin usar las luces intermitentes en una situación de emergencia conlleva una multa de Q400.</p>
+</div>
+
+<!-- Multa 83 -->
+<div class="multa-box">
+    <h3>Multa por no detenerse en una señal de alto</h3>
+    <button onclick="mostrarInfo(83)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info83" class="info">No detenerse completamente en una señal de alto conlleva una multa de Q600.</p>
+</div>
+
+<!-- Multa 84 -->
+<div class="multa-box">
+    <h3>Multa por circular en contra de la vía</h3>
+    <button onclick="mostrarInfo(84)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info84" class="info">Circular en contra del flujo del tráfico en calles de un solo sentido conlleva una multa de Q1,200.</p>
+</div>
+
+<!-- Multa 85 -->
+<div class="multa-box">
+    <h3>Multa por exceso de humo en el vehículo</h3>
+    <button onclick="mostrarInfo(85)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info85" class="info">Conducir un vehículo que emita exceso de humo conlleva una multa de Q1,000.</p>
+</div>
+
+<!-- Multa 86 -->
+<div class="multa-box">
+    <h3>Multa por no llevar botiquín en el vehículo</h3>
+    <button onclick="mostrarInfo(86)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info86" class="info">No llevar un botiquín de primeros auxilios en el vehículo conlleva una multa de Q300.</p>
+</div>
+
+<!-- Multa 87 -->
+<div class="multa-box">
+    <h3>Multa por no detenerse ante un autobús escolar</h3>
+    <button onclick="mostrarInfo(87)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info87" class="info">No detenerse cuando un autobús escolar está recogiendo o dejando estudiantes conlleva una multa de Q800.</p>
+</div>
+
+<!-- Multa 88 -->
+<div class="multa-box">
+    <h3>Multa por no respetar las señales de tránsito temporales</h3>
+    <button onclick="mostrarInfo(88)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info88" class="info">No respetar las señales de tránsito temporales en zonas de construcción conlleva una multa de Q700.</p>
+</div>
+
+<!-- Multa 89 -->
+<div class="multa-box">
+    <h3>Multa por no llevar extintor en el vehículo</h3>
+    <button onclick="mostrarInfo(89)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info89" class="info">Circular sin llevar un extintor en el vehículo conlleva una multa de Q500.</p>
+</div>
+
+<!-- Multa 90 -->
+<div class="multa-box">
+    <h3>Multa por estacionarse frente a una rampa para discapacitados</h3>
+    <button onclick="mostrarInfo(90)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info90" class="info">Estacionarse frente a una rampa para personas con discapacidad conlleva una multa de Q1,200.</p>
+</div>
+<!-- Multa 91 -->
+<div class="multa-box">
+    <h3>Multa por no llevar triángulos de seguridad</h3>
+    <button onclick="mostrarInfo(91)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info91" class="info">Circular sin llevar triángulos de seguridad en el vehículo conlleva una multa de Q300.</p>
+</div>
+
+<!-- Multa 92 -->
+<div class="multa-box">
+    <h3>Multa por no respetar los límites de carga</h3>
+    <button onclick="mostrarInfo(92)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info92" class="info">Sobrepasar el límite de carga permitido por el tipo de vehículo conlleva una multa de Q1,500.</p>
+</div>
+
+<!-- Multa 93 -->
+<div class="multa-box">
+    <h3>Multa por circular sin espejo retrovisor</h3>
+    <button onclick="mostrarInfo(93)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info93" class="info">Circular sin uno o ambos espejos retrovisores conlleva una multa de Q400.</p>
+</div>
+
+<!-- Multa 94 -->
+<div class="multa-box">
+    <h3>Multa por estacionarse en una parada de autobús</h3>
+    <button onclick="mostrarInfo(94)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info94" class="info">Estacionarse en una parada de autobús conlleva una multa de Q600.</p>
+</div>
+
+<!-- Multa 95 -->
+<div class="multa-box">
+    <h3>Multa por circular con llantas lisas</h3>
+    <button onclick="mostrarInfo(95)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info95" class="info">Circular con llantas en mal estado o lisas conlleva una multa de Q700.</p>
+</div>
+
+<!-- Multa 96 -->
+<div class="multa-box">
+    <h3>Multa por no usar casco en motocicleta</h3>
+    <button onclick="mostrarInfo(96)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info96" class="info">Circular en motocicleta sin casco conlleva una multa de Q500.</p>
+</div>
+
+<!-- Multa 97 -->
+<div class="multa-box">
+    <h3>Multa por llevar niños menores sin asiento adecuado</h3>
+    <button onclick="mostrarInfo(97)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info97" class="info">Llevar a un niño menor de 12 años sin un asiento adecuado conlleva una multa de Q1,000.</p>
+</div>
+
+<!-- Multa 98 -->
+<div class="multa-box">
+    <h3>Multa por bloquear una intersección</h3>
+    <button onclick="mostrarInfo(98)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info98" class="info">Bloquear una intersección con el vehículo conlleva una multa de Q600.</p>
+</div>
+
+<!-- Multa 99 -->
+<div class="multa-box">
+    <h3>Multa por no respetar el carril exclusivo para buses</h3>
+    <button onclick="mostrarInfo(99)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info99" class="info">Circular en un carril exclusivo para autobuses conlleva una multa de Q800.</p>
+</div>
+
+<!-- Multa 100 -->
+<div class="multa-box">
+    <h3>Multa por conducir con vidrios polarizados no autorizados</h3>
+    <button onclick="mostrarInfo(100)">¿Por qué y cuánto debo pagar?</button>
+    <p id="info100" class="info">Conducir con vidrios polarizados sin autorización conlleva una multa de Q1,200.</p>
+</div>
+
+
+        <!-- Video explicativo sobre las multas -->
+        <div class="multa-box">
+            <h3>Video explicativo sobre las multas</h3>
+            <button class="video-button" onclick="window.open('https://www.youtube.com/watch?v=lZ737XdKwfE', '_blank')">Ver video</button>
+        </div>
+    </div>
+
+    <!-- Botón para regresar a los módulos -->
+    <button class="back-button" onclick="window.location.href='modulos.html'">Regresar a Módulos</button>
+
+    <script>
+        // Función para mostrar la información de las multas
+        function mostrarInfo(id) {
+            var info = document.getElementById("info" + id);
+            if (info.style.display === "none" || info.style.display === "") {
+                info.style.display = "block";
+            } else {
+                info.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
+

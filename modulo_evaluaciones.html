@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juego de Evitar Obstáculos</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background-image: url('https://thumbs.dreamstime.com/b/gray-plastic-background-close-up-190200742.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      filter: brightness(0.8); /* Opacidad en la imagen de fondo */
+    }
+
+    header {
+      background-color: #F4B400; /* Mismo color amarillo */
+      width: 100%;
+      padding: 20px 0;
+      text-align: center;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .logo {
+      width: 60px; /* Ajustado para quedar bien en el área amarilla */
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+    }
+
+    canvas {
+      background-color: black; /* Fondo negro */
+      border: 2px solid #333;
+      display: block;
+      margin: 20px auto;
+    }
+
+    .instructions {
+      margin-top: 20px;
+      color: white; /* Cambiado a blanco para mejor visibilidad */
+    }
+
+    .message {
+      font-size: 1.5em;
+      margin-top: 10px;
+      color: red;
+    }
+
+    #overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+      color: white;
+      font-size: 2em;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      color: white;
+      background-color: #F4B400; /* Mismo color amarillo */
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #e6a623;
+    }
+
+    #pausarBtn, #reanudarBtn, #reiniciarBtn {
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="https://www.shareicon.net/data/2017/03/10/881071_tool_512x512.png" alt="Logo del sistema" class="logo"> <!-- Cambia la ruta de la imagen por la correcta -->
+    Juego de Evitar Obstáculos
+  </header>
+
+  <canvas id="gameCanvas" width="500" height="600"></canvas>
+
+  <div id="overlay"></div>
+
+  <div class="instructions">
+    Usa las flechas izquierda y derecha del teclado para mover el carro. ¡Evita los conos!
+  </div>
+
+  <div class="buttons">
+    <button id="reiniciarBtn">Reiniciar Juego</button>
+    <button id="pausarBtn">Pausar Juego</button>
+    <button id="reanudarBtn" style="display: none;">Reanudar Juego</button>
+    <button id="modulosBtn">Regresar a Módulos</button>
+    <button id="evaluacionBtn">Ir a Evaluación</button> 
+  </div>
+
+  <div class="message" id="message"></div>
+
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    // Cargar la imagen del carro y los conos
+    const carImg = new Image();
+    carImg.src = 'https://cdn.pixabay.com/photo/2013/07/13/13/14/car-160603__480.png'; // Imagen del carro
+    const coneImg = new Image();
+    coneImg.src = 'https://th.bing.com/th/id/OIP.1WyeiXMZzp9Lv9dNUI7AYwHaHa?rs=1&pid=ImgDetMain'; // Imagen del cono como obstáculo
+
+    // Variables de estado
+    let isGamePaused = false;
+    let isGameOver = false;
+
+    // Posición inicial del carro
+    let car = {
+      x: canvas.width / 2 - 30, // Tamaño más grande
+      y: canvas.height - 120,
+      width: 60, // Ancho más grande
+      height: 110, // Altura más grande
+      dx: 0,
+      speed: 5
+    };
+
+    // Obstáculos (conos)
+    let obstacles = [];
+    let obstacleSpeed = 3; // Mantener la velocidad constante
+    let obstacleFrequency = 2000; // Frecuencia en milisegundos
+    let score = 0; // Puntuación
+
+// Nueva función que aumenta la dificultad
+function increaseDifficulty() {
+    if (score % 10 === 0 && score > 0) {
+        obstacleSpeed += 0.5;  // Aumenta la velocidad de los conos
+        obstacleFrequency = Math.max(500, obstacleFrequency - 100);  // Reduce la frecuencia de aparición sin bajar de 500ms
+    }
+}
+
+
+    // Crear múltiples obstáculos
+    function createObstacle() {
+    if (!isGamePaused && !isGameOver) {
+        let numCones = Math.floor(score / 10) + 1;  // Aumenta conos según la puntuación
+        let minDistance = 50;  // Distancia mínima entre conos en píxeles
+
+        for (let i = 0; i < numCones; i++) {
+            let obstacleX;
+
+            // Generar una posición aleatoria para el cono con una separación mínima
+            let attempts = 0;
+            do {
+                obstacleX = Math.random() * (canvas.width - 40);
+                attempts++;
+            } while (attempts < 10 && obstacles.some(obstacle => Math.abs(obstacleX - obstacle.x) < minDistance));
+
+            obstacles.push({
+                x: obstacleX,
+                y: -50,
+                width: 40,
+                height: 60,
+                img: coneImg
+            });
+        }
+    }
+}
+
+
+// Actualizar el intervalo dinámicamente con la nueva frecuencia
+setInterval(function() {
+    createObstacle();
+}, obstacleFrequency);
+
+
+
+    // Dibujar el carro
+    function drawCar() {
+      ctx.drawImage(carImg, car.x, car.y, car.width, car.height);
+    }
+
+    // Dibujar los obstáculos (conos)
+    function drawObstacles() {
+    obstacles.forEach((obstacle, index) => {
+        ctx.drawImage(obstacle.img, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+        obstacle.y += obstacleSpeed;  // Mueve los conos hacia abajo
+
+        // Si el obstáculo sale de la pantalla
+        if (obstacle.y > canvas.height) {
+            obstacles.splice(index, 1);  // Eliminar obstáculo
+            score++;  // Incrementa el puntaje
+            increaseDifficulty();  // Aumenta la dificultad si corresponde
+        }
+    });
+}
+
+    // Mover el carro
+    function updateCarPosition() {
+      car.x += car.dx;
+
+      // Evitar que el carro salga de los límites
+      if (car.x < 0) {
+        car.x = 0;
+      }
+      if (car.x + car.width > canvas.width) {
+        car.x = canvas.width - car.width;
+      }
+    }
+
+    // Detectar colisiones
+    function detectCollisions() {
+      obstacles.forEach(obstacle => {
+        if (
+          car.x < obstacle.x + obstacle.width &&
+          car.x + car.width > obstacle.x &&
+          car.y < obstacle.y + obstacle.height &&
+          car.height + car.y > obstacle.y
+        ) {
+          gameOver("fallido"); // Si hay colisión
+        }
+      });
+    }
+
+    // Game Over o Ganado
+    function gameOver(result) {
+      const overlay = document.getElementById("overlay");
+      if (result === "logrado") {
+        overlay.innerText = "¡Logrado! ¡Felicidades!";
+      } else {
+        overlay.innerText = "¡Fallaste!";
+      }
+      overlay.style.display = "block";
+      car.dx = 0; // Detener el carro
+      isGameOver = true;
+    }
+
+    // Actualizar el canvas
+    function updateCanvas() {
+      if (!isGamePaused && !isGameOver) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawCar();
+        drawObstacles();
+        updateCarPosition();
+        detectCollisions();
+
+        if (score >= 50) {
+          gameOver("logrado"); // El jugador gana si alcanza 50 puntos
+        }
+
+        requestAnimationFrame(updateCanvas);
+      }
+    }
+
+    // Mover el carro con el teclado
+    function moveCar(e) {
+      if (e.key === "ArrowLeft") {
+        car.dx = -car.speed;
+      } else if (e.key === "ArrowRight") {
+        car.dx = car.speed;
+      }
+    }
+
+    // Detener el movimiento del carro
+    function stopCar(e) {
+      if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+        car.dx = 0;
+      }
+    }
+
+    // Pausar el juego
+    function pauseGame() {
+      isGamePaused = true;
+      document.getElementById("pausarBtn").style.display = "none";
+      document.getElementById("reanudarBtn").style.display = "inline";
+    }
+
+    // Reanudar el juego
+    function resumeGame() {
+      isGamePaused = false;
+      document.getElementById("pausarBtn").style.display = "inline";
+      document.getElementById("reanudarBtn").style.display = "none";
+     
+
+      updateCanvas();
+    }
+
+    // Reiniciar el juego
+
+
+    // Reiniciar el juego
+    function restartGame() {
+      location.reload(); // Recargar la página para reiniciar
+    }
+
+    // Escuchar eventos del teclado
+    document.addEventListener("keydown", moveCar);
+    document.addEventListener("keyup", stopCar);
+
+    // Botones de pausar, reanudar y reiniciar
+    document.getElementById("pausarBtn").addEventListener("click", pauseGame);
+    document.getElementById("reanudarBtn").addEventListener("click", resumeGame);
+    document.getElementById("reiniciarBtn").addEventListener("click", restartGame);
+    document.getElementById("modulosBtn").addEventListener("click", function() {
+  window.location.href = "modulos.html"; // Redirige a modulos.html
+});
+document.getElementById("evaluacionBtn").addEventListener("click", function() {
+  window.location.href = "evaluacion.html"; // Redirige a evaluacion.html
+
+});
+
+
+    // Iniciar el juego
+    setInterval(createObstacle, obstacleFrequency); // Crear obstáculos periódicamente
+    carImg.onload = () => {
+      updateCanvas(); // Iniciar el bucle del juego
+     
+
+    };
+
+  </script>
+</body>
+</html>

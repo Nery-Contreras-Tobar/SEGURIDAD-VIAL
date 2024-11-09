@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo de Consejos - Liz la Consejera Vial</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://thumbs.dreamstime.com/b/gray-plastic-background-close-up-190200742.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            filter: brightness(0.8); /* Opacidad en la imagen de fondo */
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: #F4B400; /* Fondo amarillo */
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            position: absolute;
+            top: 50%;
+            left: 40px; /* Movido más a la derecha */
+            transform: translateY(-50%);
+        }
+
+        .chat-container {
+            width: 80%;
+            max-width: 600px;
+            margin-top: 20px;
+            background-color: rgba(0, 0, 0, 0.7); /* Fondo opaco negro */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            height: 300px;
+            overflow-y: scroll;
+            background-color: #f9f9f9;
+            margin-bottom: 10px;
+            color: black; /* Texto en negro para la caja de chat */
+        }
+
+        .user-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #F4B400; /* Botones amarillos */
+            color: white;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #e6a623;
+        }
+
+        .buttons-container {
+            margin-top: 20px;
+        }
+
+        .game-button {
+            background-color: #F4B400; /* Mismo amarillo */
+        }
+
+        .game-button:hover {
+            background-color: #e6a623;
+        }
+
+        .modules-button {
+            background-color: #F4B400; /* Mismo amarillo */
+        }
+
+        .modules-button:hover {
+            background-color: #e6a623;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://www.shareicon.net/data/2017/03/10/881071_tool_512x512.png" alt="Logo del sistema" class="logo"> <!-- Cambia la ruta del logo si es necesario -->
+        Módulo de Consejos - Liz la Consejera Vial
+    </header>
+
+    <!-- Chatbot Section -->
+    <div class="chat-container">
+        <div class="chat-box" id="chatBox">
+            <!-- Chat messages will appear here -->
+        </div>
+        <input type="text" class="user-input" id="userInput" placeholder="Escribe tu pregunta o comentario...">
+        <button onclick="sendMessage()">Enviar</button>
+    </div>
+
+    <!-- Buttons below chatbot -->
+    <div class="buttons-container">
+        <button class="game-button" onclick="startGame()">Jugar</button>
+        <button class="modules-button" onclick="window.location.href='modulos.html'">Regresar a Módulos</button>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById("chatBox");
+        const userInput = document.getElementById("userInput");
+
+        // Arrays de consejos, chistes y adivinanzas
+        const consejos = [
+            "Recuerda: manejar con precaución salva vidas.",
+            "Mantén siempre una distancia segura con otros vehículos.",
+            "Usa siempre el cinturón de seguridad, ¡es por tu seguridad!",
+            "Respeta las señales de tránsito, evita accidentes.",
+            "No uses el celular mientras conduces, ¡es peligroso!",
+            "Revisa tu vehículo regularmente para asegurarte de que todo esté en buen estado.",
+            "Respeta el límite de velocidad para llegar más seguro."
+        ];
+
+        const chistes = [
+            "¿Por qué el coche fue a la escuela? Para mejorar su auto-estima.",
+            "¿Cuál es el colmo de un semáforo? Que siempre lo dejen en rojo.",
+            "¿Qué hace un auto en el cine? ¡Ver una peli-culota!"
+        ];
+
+        const adivinanzas = [
+            "Soy grande y pesado, tengo muchas ruedas, llevo cosas a todas partes. ¿Qué soy? (Un camión).",
+            "Tengo luces de tres colores y todos me obedecen. ¿Quién soy? (Un semáforo).",
+            "Tengo cuatro ruedas y un volante, y siempre me ven en la calle. ¿Qué soy? (Un automóvil)."
+        ];
+
+        // Function to send a message and get a response from Liz
+        function sendMessage() {
+            const userMessage = userInput.value;
+            if (userMessage.trim() !== "") {
+                addMessageToChat("Usuario", userMessage);
+                getResponse(userMessage);
+                userInput.value = ""; // Clear the input field
+            }
+        }
+
+        // Function to add messages to the chat
+        function addMessageToChat(sender, message) {
+            const messageElement = document.createElement("div");
+            messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
+        }
+
+        // Function to get responses from Liz
+        function getResponse(userMessage) {
+            const greetings = ["hola", "buenos días", "qué tal", "cómo estás"];
+            const affirmations = ["sí", "claro", "por favor", "necesito un consejo"];
+            const despedidas = ["adiós", "gracias", "nos vemos"];
+            const humor = ["chiste", "cuéntame un chiste", "dime un chiste", "broma"];
+            const riddles = ["adivinanza", "cuéntame una adivinanza", "dime una adivinanza"];
+            const jugar = ["jugar", "quiero jugar", "juego"];
+
+            let response = "No entiendo tu pregunta, ¿puedes reformularla?";
+
+            // Greet the user if they say hello or similar
+            if (greetings.some(greet => userMessage.toLowerCase().includes(greet))) {
+                response = "¡Hola! ¿Cómo te encuentras hoy? ¿Te gustaría recibir el consejo del día?";
+            } 
+            // Provide a random advice if the user asks for a consejo
+            else if (affirmations.some(affirm => userMessage.toLowerCase().includes(affirm)) || userMessage.toLowerCase().includes("consejo")) {
+                response = "El consejo del día es: " + consejos[Math.floor(Math.random() * consejos.length)];
+            } 
+            // Respond with humor if the user asks for a joke
+            else if (humor.some(hum => userMessage.toLowerCase().includes(hum))) {
+                response = "Aquí tienes un chiste vial: " + chistes[Math.floor(Math.random() * chistes.length)];
+            } 
+            // Respond with a riddle if the user asks for one
+            else if (riddles.some(rid => userMessage.toLowerCase().includes(rid))) {
+                response = "Aquí tienes una adivinanza: " + adivinanzas[Math.floor(Math.random() * adivinanzas.length)];
+            } 
+            // Respond to the request to play the game
+            else if (jugar.some(play => userMessage.toLowerCase().includes(play))) {
+                response = "¡Genial! Haz clic en el botón de 'Jugar' para empezar una lluvia de ideas.";
+            }
+            // Say goodbye if the user says goodbye or thanks
+            else if (despedidas.some(desp => userMessage.toLowerCase().includes(desp))) {
+                response = "¡De nada! Nos vemos pronto. ¡Maneja con cuidado!";
+            } 
+            // Respond to casual inquiries like "qué tal"
+            else if (userMessage.toLowerCase().includes("qué tal")) {
+                response = "¡Estoy aquí para ayudarte! ¿Te gustaría algún consejo de manejo hoy?";
+            }
+
+            setTimeout(() => {
+                addMessageToChat("Liz", response);
+            }, 1000); // Delay for more realistic interaction
+        }
+
+        // Function to start the idea generation game
+        function startGame() {
+            window.location.href = 'juego.html'; // Redirect to game (you can replace this with the actual link)
+        }
+
+        // Liz greets the user when the page loads
+        window.onload = function() {
+            addMessageToChat("Liz", "¡Hola! Soy Liz la Consejera Vial. Estoy aquí para ayudarte con los mejores consejos de seguridad vial. ¿Te gustaría un consejo, un chiste, una adivinanza o te gustaría jugar?");
+        };
+    </script>
+
+</body>
+</html>
+

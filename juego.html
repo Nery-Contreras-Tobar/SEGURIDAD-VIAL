@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafío de Consejos Rápidos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://thumbs.dreamstime.com/b/gray-plastic-background-close-up-190200742.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+        }
+
+        header {
+            width: 100%;
+            background-color: #DAA520;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        header img {
+            height: 45px;
+            width: 45px;
+            position: absolute;
+            top: 0px;
+            left: 40px; /* Ajustado para reducir el tamaño del logo y subirlo */
+        }
+
+        h1 {
+            color: white;
+            font-size: 24px;
+            margin: 0;
+            text-align: center;
+        }
+
+        .content {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .timer {
+            font-size: 24px;
+            background-color: #DAA520;
+            padding: 10px;
+            border-radius: 8px;
+            color: black;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .consejos {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .consejo {
+            background-color: #DAA520;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 14px;
+        }
+
+        .consejo:hover {
+            background-color: #C4941D;
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        button {
+            background-color: #DAA520;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #C4941D;
+        }
+
+        .result {
+            font-size: 50px;
+            font-weight: bold;
+            color: red;
+            margin-top: 20px;
+        }
+
+        .fail {
+            color: red;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="https://www.shareicon.net/data/2017/03/10/881071_tool_512x512.png" alt="Logo" style="height: 45px; width: 45px; top: 0px; left: 40px;">
+        <h1>Desafío de Consejos Rápidos</h1>
+    </header>
+
+    <div class="content">
+        <div class="timer" id="timer">Tiempo: 30</div>
+
+        <div id="consejosContainer" class="consejos">
+            <!-- Consejos se generarán aquí -->
+        </div>
+
+        <div class="buttons-container">
+            <button id="startButton" onclick="startGame()">Iniciar Juego</button>
+            <button onclick="window.location.href='modulo_consejos.html'">Regresar a Consejos</button>
+        </div>
+
+        <div id="result" class="result hide"></div>
+    </div>
+
+    <!-- Script para el confeti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+    <script>
+        const consejos = [
+            { text: "Mantén siempre una distancia segura con otros vehículos.", correcto: true },
+            { text: "No respetar las señales de tránsito es aceptable si tienes prisa.", correcto: false },
+            { text: "Usa siempre el cinturón de seguridad.", correcto: true },
+            { text: "Acelera cuando veas una luz amarilla.", correcto: false },
+            { text: "Respeta el límite de velocidad.", correcto: true },
+            { text: "Es mejor textear mientras conduces si es urgente.", correcto: false },
+            { text: "No uses el celular mientras conduces.", correcto: true },
+            { text: "Puedes saltarte un stop si no hay nadie.", correcto: false },
+            { text: "Mantén los espejos retrovisores bien ajustados.", correcto: true },
+            { text: "Usa luces intermitentes para cambiar de carril.", correcto: true },
+            { text: "No uses el cinturón si vas cerca.", correcto: false },
+            { text: "Ignorar las señales de tránsito si nadie está cerca es seguro.", correcto: false },
+            { text: "Puedes conducir después de beber una cerveza.", correcto: false },
+            { text: "Revisar los espejos antes de cambiar de carril es crucial.", correcto: true },
+            { text: "Respeta los pasos peatonales.", correcto: true },
+            { text: "Es preferible manejar sin cinturón si no es una vía rápida.", correcto: false },
+            { text: "Siempre debes verificar tus frenos antes de salir.", correcto: true },
+            { text: "Ignorar semáforos en rojo cuando no hay tráfico es aceptable.", correcto: false },
+            { text: "No es necesario respetar el paso peatonal si estás en una prisa.", correcto: false },
+            { text: "Nunca uses tu celular mientras manejas.", correcto: true }
+        ];
+
+        let correctChoices = 0;
+        let incorrectChoices = 0;
+        let timeLeft = 30;
+        let timer;
+
+        function startGame() {
+            correctChoices = 0;
+            incorrectChoices = 0;
+            timeLeft = 30;
+
+            document.getElementById("result").classList.add("hide");
+            document.getElementById("startButton").classList.add("hide");
+
+            consejos.sort(() => Math.random() - 0.5);
+
+            showConsejos();
+            timer = setInterval(updateTimer, 1000);
+        }
+
+        function showConsejos() {
+            const consejosContainer = document.getElementById("consejosContainer");
+            consejosContainer.innerHTML = "";
+
+            consejos.forEach((consejo, index) => {
+                const consejoDiv = document.createElement("div");
+                consejoDiv.classList.add("consejo");
+                consejoDiv.innerText = consejo.text;
+                consejoDiv.onclick = () => selectConsejo(index, consejoDiv);
+                consejosContainer.appendChild(consejoDiv);
+            });
+        }
+
+        function selectConsejo(index, consejoDiv) {
+            consejoDiv.style.pointerEvents = "none";
+
+            if (consejos[index].correcto) {
+                consejoDiv.style.backgroundColor = "green";
+                correctChoices++;
+            } else {
+                consejoDiv.style.backgroundColor = "red";
+                incorrectChoices++;
+            }
+        }
+
+        function updateTimer() {
+            timeLeft--;
+            document.getElementById("timer").innerText = "Tiempo: " + timeLeft;
+
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                endGame();
+            }
+        }
+
+        function endGame() {
+            document.getElementById("startButton").classList.remove("hide");
+
+            const resultDiv = document.getElementById("result");
+            resultDiv.classList.remove("hide");
+
+            if (correctChoices >= 10) {
+                resultDiv.innerText = "¡Felicidades!";
+                resultDiv.classList.add("success");
+                resultDiv.classList.remove("fail");
+
+                // Lanza confeti si el usuario tuvo muchos aciertos
+                confetti({
+                    particleCount: 150,
+                    spread: 60,
+                    origin: { y: 0.6 }
+                });
+            } else {
+                resultDiv.innerText = "Fallido";
+                resultDiv.classList.add("fail");
+                resultDiv.classList.remove("success");
+            }
+        }
+    </script>
+</body>
+
+</html>

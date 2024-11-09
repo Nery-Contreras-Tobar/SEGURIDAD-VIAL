@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenidos a Lis - Sistema de Aprendizaje de Conocimiento Vial</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('https://thumbs.dreamstime.com/b/gray-plastic-background-close-up-190200742.jpg'); /* Coloca la ruta a tu imagen */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* Fondo opaco */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* El 0.5 hace que sea opaco */
+            z-index: -1;
+        }
+
+        .container {
+            text-align: center;
+            color: white;
+        }
+
+        .logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; /* Hace la imagen circular */
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 5px solid #fff; /* Borde blanco alrededor del logo */
+        }
+
+        h1 {
+            font-size: 48px;
+            color: yellow; /* Texto en tono amarillo */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Sombras para mejor visibilidad */
+        }
+
+        p {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+
+        .btn-modulos {
+            background-color: #f0c30f; /* Color amarillo suave */
+            color: black;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 20px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-modulos:hover {
+            background-color: #ffcc33; /* Color más claro al pasar el cursor */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+
+    <div class="container">
+        <!-- Logo en forma circular -->
+        <img src="https://www.shareicon.net/data/2017/03/10/881071_tool_512x512.png" alt="Logo Liz" class="logo"> 
+
+        <!-- Texto de bienvenida -->
+        <h1>¡Bienvenidos a Liz!</h1>
+        <p>Tu sistema de aprendizaje sobre seguridad y conocimiento vial, En Liz, encontrarás módulos interactivos que te guiarán a través de los aspectos más importantes de la seguridad vial, desde la identificación de señales de tránsito hasta consejos prácticos sobre cómo prevenir accidentes. A través de cuestionarios, juegos, y otros recursos educativos, podrás poner a prueba tu conocimiento y asegurarte de estar preparado para transitar de manera segura.
+           Recuerda, la seguridad vial no solo es responsabilidad de los conductores, sino de todos los que compartimos las vías. ¡Comencemos este viaje juntos para hacer de nuestras calles un lugar más seguro para todos!</p>
+
+        <!-- Botón para redirigir a los módulos -->
+        <a href="modulos.html" class="btn-modulos">Ir a los Módulos</a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulos del Sistema web de aprendizaje de conocimiento vial</title>
+    <style>
+        body {
+            font-family: 'Arial', serif;
+            background-image: url('https://thumbs.dreamstime.com/b/gray-plastic-background-close-up-190200742.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #333;
+            text-align: center;
+            padding: 50px;
+        }
+
+        header {
+            background-color: #F4B400; /* Color amarillo suave igual que en el index */
+            color: white;
+            padding: 20px;
+        }
+
+        .logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-top: 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: white; /* Letra blanca para que contraste con el fondo */
+            margin: 20px 0;
+        }
+
+        .module-container {
+            margin: 30px 0;
+        }
+
+        h3 {
+            font-size: 24px;
+            color: white; /* Color blanco para mejor visibilidad */
+        }
+
+        button {
+            background-color: #F4B400; /* Mismo color amarillo del index */
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #e6a623; /* Un tono más oscuro al pasar el mouse */
+        }
+
+        /* Estilo del botón de regresar */
+        .back-button {
+            background-color: #F4B400; /* Mismo color amarillo */
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .back-button:hover {
+            background-color: #e6a623; /* Un tono más oscuro al pasar el mouse */
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://www.shareicon.net/data/2017/03/10/881071_tool_512x512.png" alt="Logo del sistema" class="logo"> <!-- Cambia "ruta_del_logo.png" por la ruta de tu imagen -->
+        <h1>Bienvenidos a Liz</h1>
+        <p>Sistema de aprendizaje de conocimiento vial</p>
+    </header>
+
+    <div class="module-container">
+        <h3>Módulo de Aprendizaje</h3>
+        <button onclick="location.href='modulo_aprendizaje.html'">Ver Contenido</button>
+    </div>
+
+    <div class="module-container">
+        <h3>Módulo de Evaluaciones</h3>
+        <button onclick="location.href='modulo_evaluaciones.html'">Ver Cuestionario</button>
+    </div>
+
+    <div class="module-container">
+        <h3>Módulo de Multas</h3>
+        <button onclick="location.href='modulo_multas.html'">Ver Multas</button>
+    </div>
+
+    <div class="module-container">
+        <h3>Módulo de Consejos</h3>
+        <button onclick="location.href='modulo_consejos.html'">Ver Consejos</button>
+    </div>
+
+    <!-- Botón nuevo para Manuales de Manejo -->
+    <div class="module-container">
+        <h3>Manuales de Manejo</h3>
+        <button onclick="location.href='manuales.html'">Ver Manuales</button>
+    </div>
+
+    <!-- Botón para regresar al index.html -->
+    <button class="back-button" onclick="location.href='index.html'">Regresar al Inicio</button>
+
+</body>
+</html>

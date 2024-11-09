@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cruce Seguro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://thumbs.dreamstime.com/b/gray-plastic-background-close-up-190200742.jpg');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            filter: brightness(0.8);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #F4B400;
+            padding: 20px;
+            font-size: 24px;
+            color: white;
+            position: relative;
+        }
+
+        .logo {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .game-container {
+            position: relative;
+            width: 500px;
+            height: 600px;
+            margin: 20px auto;
+            background-color: #333;
+            border: 2px solid #000;
+            overflow: hidden;
+        }
+
+        .character, .car {
+            position: absolute;
+            width: 40px;
+            height: 80px;
+        }
+
+        .character { bottom: 10px; left: 230px; }
+
+        .car { top: -100px; }
+
+        .traffic-light {
+            width: 40px;
+            height: 100px;
+            background-color: gray;
+            position: absolute;
+            top: 100px;
+            right: 10px;
+        }
+
+        .light { width: 30px; height: 30px; margin: 5px auto; border-radius: 50%; }
+
+        .green-light { background-color: green; }
+
+        .red-light { background-color: red; }
+
+        .meta { width: 100%; height: 5px; background-color: white; position: absolute; top: 20px; }
+
+        .message {
+            font-size: 30px;
+            font-weight: bold;
+            color: red;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #F4B400;
+            border-radius: 10px;
+            display: none;
+            color: white;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 10px;
+            background-color: #F4B400;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover { background-color: #e6a623; }
+
+        .instructions {
+            background-color: #f4f4f4;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://www.shareicon.net/data/2017/03/10/881071_tool_512x512.png" alt="Logo" class="logo">
+        Cruce Seguro
+    </header>
+
+    <div class="game-container">
+        <div class="meta" id="meta"></div>
+        <img src="https://w7.pngwing.com/pngs/563/650/png-transparent-sports-car-bird-s-eye-view-race-car-car-color-vehicle.png" alt="Carrito Azul" class="character" id="character">
+        <img src="https://c0.klipartz.com/pngpicture/816/398/gratis-png-ilustracion-convertible-blanco-plan-de-coche-coche-thumbnail.png" alt="Carro Rojo" class="car" id="car">
+        <div class="traffic-light">
+            <div class="light" id="greenLight"></div>
+            <div class="light" id="redLight"></div>
+        </div>
+    </div>
+
+    <div class="message" id="gameOverMessage">¡Juego fallido!</div>
+    <div class="message" id="gameWonMessage">¡Ganaste!</div>
+
+    <button id="restartBtn" style="display:none;" onclick="restartGame()">Reanudar</button>
+    <button id="moduleBtn" style="display:none;" onclick="window.location.href='modulo_aprendizaje.html'">Regresar a Módulo Aprendizaje</button>
+
+    <div class="instructions">
+        <h2>Instrucciones del Juego</h2>
+        <p>Usa las flechas del teclado para mover el carrito azul. El objetivo es cruzar la calle y llegar a la meta cuando el semáforo esté en verde. Evita los carros blancos que vienen en sentido contrario. Si intentas cruzar en rojo o chocas con un carro, el juego terminará.</p>
+        <p>¡Buena suerte!</p>
+    </div>
+
+    <script>
+        const character = document.getElementById('character');
+        const car = document.getElementById('car');
+        const greenLight = document.getElementById('greenLight');
+        const redLight = document.getElementById('redLight');
+        const meta = document.getElementById('meta');
+        const gameOverMessage = document.getElementById('gameOverMessage');
+        const gameWonMessage = document.getElementById('gameWonMessage');
+        const restartBtn = document.getElementById('restartBtn');
+        const moduleBtn = document.getElementById('moduleBtn');
+
+        let isGameOver = false;
+        let isGreenLight = true;
+        let carPosition = 0;
+        let characterX = 230;
+        let characterY = 500;
+        let metaCrossed = false;
+
+        greenLight.classList.add('green-light');
+        redLight.classList.remove('red-light');
+
+        function moveCar() {
+            carPosition += 5;
+            car.style.top = carPosition + 'px';
+
+            if (carPosition > 600) {
+                carPosition = -100;
+                car.style.left = Math.random() * 440 + 'px';
+            }
+
+            const characterRect = character.getBoundingClientRect();
+            const carRect = car.getBoundingClientRect();
+            if (characterRect.left < carRect.left + carRect.width &&
+                characterRect.left + characterRect.width > carRect.left &&
+                characterRect.top < carRect.top + carRect.height &&
+                characterRect.top + characterRect.height > carRect.top) {
+                gameOver();
+            }
+
+            if (!isGameOver) requestAnimationFrame(moveCar);
+        }
+
+        function changeTrafficLight() {
+            isGreenLight = !isGreenLight;
+            if (isGreenLight) {
+                greenLight.classList.add('green-light');
+                redLight.classList.remove('red-light');
+            } else {
+                greenLight.classList.remove('green-light');
+                redLight.classList.add('red-light');
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (isGameOver) return;
+
+            if (e.key === 'ArrowUp' && characterY > 0) {
+                characterY -= 10;
+                character.style.top = characterY + 'px';
+            } else if (e.key === 'ArrowDown' && characterY < 550) {
+                characterY += 10;
+                character.style.top = characterY + 'px';
+            } else if (e.key === 'ArrowLeft' && characterX > 0) {
+                characterX -= 10;
+                character.style.left = characterX + 'px';
+            } else if (e.key === 'ArrowRight' && characterX < 460) {
+                characterX += 10;
+                character.style.left = characterX + 'px';
+            }
+
+            if (characterY <= 50 && !metaCrossed) {
+                if (isGreenLight) winGame();
+                else gameOver();
+            }
+        });
+
+        function gameOver() {
+            isGameOver = true;
+            gameOverMessage.style.display = 'block';
+            restartBtn.style.display = 'inline';
+            moduleBtn.style.display = 'inline';
+        }
+
+        function winGame() {
+            isGameOver = true;
+            metaCrossed = true;
+            gameWonMessage.style.display = 'block';
+            restartBtn.style.display = 'inline';
+            moduleBtn.style.display = 'inline';
+        }
+
+        function restartGame() {
+            isGameOver = false;
+            metaCrossed = false;
+            gameOverMessage.style.display = 'none';
+            gameWonMessage.style.display = 'none';
+            restartBtn.style.display = 'none';
+            moduleBtn.style.display = 'none';
+            characterY = 500;
+            character.style.top = characterY + 'px';
+            carPosition = 0;
+            moveCar();
+        }
+
+        moveCar();
+        setInterval(changeTrafficLight, 3000);
+    </script>
+</body>
+</html>
+

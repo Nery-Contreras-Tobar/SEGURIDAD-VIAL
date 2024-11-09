@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manuales de Manejo</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('https://thumbs.dreamstime.com/b/gray-plastic-background-close-up-190200742.jpg'); /* Imagen de fondo */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            text-align: center;
+            filter: brightness(0.8); /* Opacidad de la imagen de fondo */
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #F4B400;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Logo circular */
+        .logo {
+            position: absolute;
+            top: 5px; /* Ajuste la posición superior para que quede en la franja amarilla */
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .tabs {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .tab-button {
+            background-color: #F4B400;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .tab-button:hover {
+            background-color: #e6a623;
+        }
+
+        .tab-content {
+            display: none;
+            margin-top: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .active {
+            display: block;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        ul {
+            text-align: left;
+            padding-left: 40px;
+        }
+
+        /* Botón para regresar */
+        .back-button {
+            background-color: #F4B400;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .back-button:hover {
+            background-color: #f1a50c;
+        }
+
+        /* Botón de descarga */
+        .download-button {
+            background-color: #eed70d;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .download-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://www.shareicon.net/data/2017/03/10/881071_tool_512x512.png" alt="Logo del sistema" class="logo"> <!-- Cambia "ruta_del_logo.png" por la ruta de tu logo -->
+        Manuales de Manejo
+    </header>
+
+    <!-- Pestañas para seleccionar el tipo de vehículo -->
+    <div class="tabs">
+        <button class="tab-button" onclick="showContent('car')">Automóvil</button>
+        <button class="tab-button" onclick="showContent('motorcycle')">Motocicleta</button>
+        <button class="tab-button" onclick="showContent('truck')">Camión</button>
+        <button class="tab-button" onclick="showContent('bus')">Autobús</button>
+    </div>
+
+    <!-- Contenido de cada manual -->
+    <div id="car" class="tab-content">
+        <h2>Manual de Manejo de Automóvil</h2>
+        <ul id="car-content">
+            <li>Uso del cluth: Aprende a cambiar de marcha usando el embrague de manera correcta para evitar daños al motor y ahorrar combustible.</li>
+            <li>Frenado en diferentes superficies: Cómo usar el freno de manera eficiente en pavimentos mojados, gravilla y nieve.</li>
+            <li>Control de la velocidad: Mantén una velocidad adecuada según las reglas de tráfico y el entorno en el que conduces.</li>
+            <li>Conducción en condiciones climáticas adversas: Consejos para conducir bajo la lluvia, niebla o con hielo en la carretera.</li>
+            <li>Uso de las luces: Aprender a utilizar correctamente las luces delanteras, intermitentes y de emergencia.</li>
+            <li>Distancia de seguridad: Mantén una distancia adecuada entre tu vehículo y el de adelante para evitar colisiones en frenados inesperados.</li>
+            <li>Uso correcto del cinturón de seguridad: Siempre asegúrate de que todos los pasajeros usen el cinturón de seguridad antes de arrancar.</li>
+            <li>Cambio de neumáticos: Aprende a cambiar un neumático en caso de emergencia y asegúrate de llevar siempre un kit básico de herramientas.</li>
+            <li>Revisión de niveles de aceite y líquido de frenos: Mantén tu automóvil en buen estado revisando los niveles de aceite, líquido de frenos y refrigerante regularmente.</li>
+            <li>Uso adecuado de los espejos: Ajusta correctamente los espejos retrovisores y laterales para evitar puntos ciegos y facilitar maniobras seguras.</li>
+            <li>Conducción defensiva: Aprende a anticipar las acciones de otros conductores y cómo reaccionar adecuadamente para evitar accidentes.</li>
+            <li>Control en bajadas prolongadas: Usa cambios bajos y el freno motor para mantener el control del vehículo en pendientes largas y pronunciadas.</li>
+            <li>Revisión antes de un viaje largo: Asegúrate de revisar la presión de las llantas, el nivel de aceite y otros elementos clave antes de un viaje largo.</li>
+            <li>Uso del aire acondicionado y la calefacción: Mantén una temperatura adecuada dentro del vehículo para evitar distracciones y fatiga.</li>
+            <li>Detención en emergencias: Aprende las técnicas para detener el automóvil de manera segura en situaciones de emergencia o fallos mecánicos.</li>
+            <li>Revisión de las luces: Antes de conducir, verifica que todas las luces (faros, luces de freno, intermitentes) funcionen correctamente.</li>
+            <li>Ajuste del asiento: Ajusta el asiento para que puedas alcanzar los pedales y el volante de manera cómoda y segura.</li>
+            <li>Control de la dirección: Mantén ambas manos en el volante en una posición adecuada (10 y 2) para tener control completo del vehículo.</li>
+            <li>Uso adecuado de los frenos ABS: Aprende cómo usar los frenos con sistema ABS para evitar el bloqueo de ruedas y mantener la dirección en frenadas de emergencia.</li>
+            <li>Cuidado al estacionar en pendiente: Usa el freno de mano y pon el automóvil en primera (o reversa) al estacionar en una pendiente.</li>
+            <li>Cómo tomar curvas cerradas: Reduce la velocidad antes de entrar en una curva cerrada para evitar perder el control del vehículo.</li>
+            <li>Inspección de la batería: Verifica periódicamente la batería del automóvil, asegurándote de que los bornes no tengan corrosión y los niveles de líquido estén correctos.</li>
+            <li>Evitar distracciones: No uses el celular ni te distraigas con pantallas mientras conduces. Mantén toda tu atención en la carretera.</li>
+            <li>Manejo del volante: Practica la técnica "mano sobre mano" para giros suaves y controlados en situaciones que lo requieran.</li>
+            <li>Revisar el indicador de combustible: Nunca permitas que el tanque llegue a niveles extremadamente bajos para evitar quedarte sin gasolina en el camino.</li>
+
+        </ul>
+        <!-- Botón para descargar el manual de automóvil en PDF -->
+        <button class="download-button" onclick="downloadPDF('car-content', 'Manual Automóvil')">Descargar Manual PDF</button>
+    </div>
+
+    <div id="motorcycle" class="tab-content">
+        <h2>Manual de Manejo de Motocicleta</h2>
+        <ul id="motorcycle-content">
+            <li>Uso del casco: Siempre lleva puesto un casco homologado que se ajuste bien a tu cabeza para protegerte en caso de accidentes.</li>
+            <li>Ropa adecuada: Usa ropa protectora, como chaquetas con protecciones, guantes, pantalones largos y botas cerradas, para minimizar lesiones en caso de caída.</li>
+            <li>Control de los espejos: Ajusta los espejos antes de iniciar el viaje para tener buena visibilidad de lo que sucede detrás.</li>
+            <li>Presión de los neumáticos: Revisa la presión de los neumáticos regularmente para garantizar una buena tracción y estabilidad.</li>
+            <li>Control del nivel de aceite: Asegúrate de que el nivel de aceite esté dentro del rango recomendado para un funcionamiento adecuado del motor.</li>
+            <li>Revisión de las luces: Verifica que los faros, luces de freno y direccionales funcionen correctamente antes de conducir.</li>
+            <li>Frenado progresivo: Usa ambos frenos de forma suave y progresiva para evitar bloqueos y caídas al frenar repentinamente.</li>
+            <li>Uso adecuado del embrague: Suelta el embrague de manera gradual para evitar que la moto se sacuda al iniciar la marcha.</li>
+            <li>Manejo en superficies mojadas: Conduce con precaución en superficies mojadas, evitando movimientos bruscos y frenadas fuertes.</li>
+            <li>Revisión de la cadena: Lubrica y ajusta la cadena periódicamente para asegurar un funcionamiento suave y prolongar su vida útil.</li>
+            <li>Uso de las intermitentes: Señala siempre tus maniobras con las direccionales para que otros conductores puedan anticipar tus movimientos.</li>
+            <li>Mantenimiento de los frenos: Revisa periódicamente el desgaste de las pastillas de freno y el nivel del líquido de frenos.</li>
+            <li>Postura correcta: Mantén una postura cómoda pero firme, con los pies sobre los estribos y las manos bien sujetas al manillar.</li>
+            <li>Visibilidad en intersecciones: Al acercarte a una intersección, asegúrate de ser visible para los demás conductores, reduciendo la velocidad y usando tus luces.</li>
+            <li>Evita el punto ciego de otros vehículos: Mantente alejado de los puntos ciegos de los autos y camiones para evitar accidentes.</li>
+            <li>No sobrecargues la motocicleta: Evita llevar más peso del que la motocicleta está diseñada para soportar, ya que puede afectar su estabilidad.</li>
+            <li>Manejo con pasajeros: Si llevas un pasajero, asegúrate de que también use casco y se sujete bien mientras la moto esté en movimiento.</li>
+            <li>Distancia de seguridad: Mantén una distancia adecuada entre tu motocicleta y otros vehículos para tener tiempo de reacción ante cualquier imprevisto.</li>
+            <li>Respeta los límites de velocidad: Conduce dentro de los límites de velocidad establecidos para tu seguridad y la de los demás.</li>
+            <li>Usa ambas manos para manejar: Mantén ambas manos en el manillar, salvo cuando necesites señalizar con los brazos.</li>
+        
+        </ul>
+        <!-- Botón para descargar el manual de motocicleta en PDF -->
+        <button class="download-button" onclick="downloadPDF('motorcycle-content', 'Manual Motocicleta')">Descargar Manual PDF</button>
+    </div>
+
+    <div id="truck" class="tab-content">
+        <h2>Manual de Manejo de Camión</h2>
+        <ul id="truck-content">
+            <li>Revisión del freno de aire: Antes de iniciar el viaje, asegúrate de que el sistema de frenos de aire esté funcionando correctamente y sin fugas.</li>
+            <li>Inspección de neumáticos: Verifica la presión y el desgaste de los neumáticos, asegurándote de que estén en buen estado para soportar largas distancias.</li>
+            <li>Carga segura: Asegúrate de que la carga esté bien distribuida y asegurada para evitar desestabilizar el camión en curvas o frenadas bruscas.</li>
+            <li>Revisión de espejos: Ajusta los espejos laterales para tener una visibilidad óptima de los lados y la parte trasera del camión.</li>
+            <li>Revisión de luces: Verifica que los faros, luces traseras, direccionales y luces de freno funcionen correctamente.</li>
+            <li>Frenado en pendiente: Utiliza el freno de motor (o freno de escape) al descender por pendientes pronunciadas para evitar sobrecalentar los frenos.</li>
+            <li>Uso de las intermitentes: Siempre utiliza las intermitentes con suficiente antelación antes de cambiar de carril o girar.</li>
+            <li>Distancia de seguridad: Mantén una distancia segura entre tu camión y el vehículo de adelante, especialmente cuando transportes cargas pesadas.</li>
+            <li>Curvas amplias: Al tomar curvas, hazlo de manera más amplia para evitar que la parte trasera del camión invada otros carriles.</li>
+            <li>Uso adecuado de los espejos: Revisa constantemente los espejos para estar al tanto de los vehículos que circulan detrás y a los lados.</li>
+            <li>Cambio de marchas: Usa las marchas adecuadamente para mantener el control del camión, especialmente en pendientes y curvas.</li>
+            <li>Control del embrague: Usa el embrague suavemente para evitar sacudidas bruscas que puedan afectar la carga.</li>
+            <li>Frenado progresivo: Usa el freno de manera suave y progresiva para evitar que la carga se desplace dentro del camión.</li>
+            <li>Planificación de rutas: Planifica tus rutas con anticipación, considerando restricciones de peso, altura y posibles desvíos.</li>
+            <li>Verificación de la altura del camión: Conoce la altura de tu camión y asegúrate de que las rutas que tomes no tengan puentes o túneles con restricciones de altura.</li>
+            <li>Control del tiempo de conducción: Descansa cada cierto tiempo para evitar la fatiga al conducir largas distancias.</li>
+            <li>Revisión de la presión de frenos: Verifica regularmente la presión del sistema de frenos para evitar pérdida de capacidad de frenado.</li>
+            <li>Luces de emergencia: Usa las luces de emergencia en situaciones donde debas detenerte en la carretera por averías o emergencias.</li>
+            <li>Cuidado en zonas escolares: Reduce la velocidad en zonas escolares y áreas urbanas con alto tráfico peatonal.</li>
+            <li>Revisión de la suspensión: Verifica el estado de los amortiguadores y la suspensión para garantizar una conducción suave y segura.</li>
+
+        </ul>
+        <!-- Botón para descargar el manual de camión en PDF -->
+        <button class="download-button" onclick="downloadPDF('truck-content', 'Manual Camión')">Descargar Manual PDF</button>
+    </div>
+
+    <div id="bus" class="tab-content">
+        <h2>Manual de Manejo de Autobús</h2>
+        <ul id="bus-content">
+            <li>Revisión de frenos: Antes de cada viaje, asegúrate de que el sistema de frenos funcione correctamente para evitar accidentes.</li>
+            <li>Revisión de neumáticos: Verifica la presión y el estado de los neumáticos antes de comenzar el viaje.</li>
+            <li>Inspección de las puertas: Asegúrate de que las puertas del autobús abran y cierren correctamente.</li>
+            <li>Control de los espejos: Ajusta los espejos retrovisores y laterales para maximizar la visibilidad de los laterales y la parte trasera del autobús.</li>
+            <li>Verificación de las luces: Asegúrate de que las luces delanteras, traseras, direccionales y de freno funcionen correctamente.</li>
+            <li>Control de cinturones de seguridad: Verifica que los cinturones de seguridad para los pasajeros y el conductor estén en buen estado y funcionen correctamente.</li>
+            <li>Revisión del aire acondicionado: Comprueba que el sistema de aire acondicionado y calefacción funcionen adecuadamente.</li>
+            <li>Uso adecuado del embrague: Al cambiar de marcha, usa el embrague suavemente para evitar sacudidas bruscas.</li>
+            <li>Manejo del autobús en curvas: Toma las curvas de forma amplia y lenta para evitar que los pasajeros pierdan el equilibrio.</li>
+            <li>Frenado progresivo: Evita frenadas bruscas para que los pasajeros no se desestabilicen dentro del autobús.</li>
+            <li>Control de la velocidad: Respeta los límites de velocidad, especialmente en áreas urbanas y escolares.</li>
+            <li>Planificación de rutas: Conoce bien la ruta y las paradas antes de salir para evitar desvíos innecesarios.</li>
+            <li>Uso adecuado de las intermitentes: Utiliza las intermitentes con anticipación para indicar giros y cambios de carril.</li>
+            <li>Distancia de seguridad: Mantén siempre una distancia segura entre tu autobús y otros vehículos.</li>
+            <li>Revisión de las rampas: Si el autobús cuenta con rampas para personas con movilidad reducida, asegúrate de que funcionen correctamente.</li>
+            <li>Frenado en pendientes: Utiliza el freno de motor al bajar pendientes pronunciadas para evitar sobrecalentamiento de los frenos.</li>
+            <li>Atención a las señales de tráfico: Respeta todas las señales de tráfico, especialmente en paradas de autobús y zonas escolares.</li>
+            <li>Revisión de puertas de emergencia: Asegúrate de que las puertas de emergencia del autobús estén operativas y libres de obstrucciones.</li>
+            <li>Cuidado con las paradas: Detén el autobús de manera suave y precisa en cada parada para la comodidad y seguridad de los pasajeros.</li>
+            <li>Atención a los retrovisores: Usa los retrovisores con frecuencia para mantenerte al tanto de los vehículos que te rodean.</li>
+
+        </ul>
+        <!-- Botón para descargar el manual de autobús en PDF -->
+        <button class="download-button" onclick="downloadPDF('bus-content', 'Manual Autobús')">Descargar Manual PDF</button>
+    </div>
+
+    <!-- Botón de regreso -->
+    <button class="back-button" onclick="window.location.href='modulos.html'">Regresar a Módulos</button>
+
+    <!-- Incluir jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script>
+        // Función para mostrar el contenido de cada manual
+        function showContent(type) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            document.getElementById(type).classList.add('active');
+        }
+
+                // Función para generar el PDF
+                function downloadPDF(contentId, title) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Agregar el título al PDF
+            doc.setFontSize(16);
+            doc.text(title, 10, 10);
+
+            // Obtener el contenido de la lista
+            const content = document.getElementById(contentId);
+            const items = content.getElementsByTagName('li');
+
+            // Establecer la posición inicial para el contenido
+            let yPosition = 20;
+
+            // Agregar los ítems de la lista al PDF con viñetas
+            for (let i = 0; i < items.length; i++) {
+                let text = items[i].innerText;
+                doc.text(`• ${text}`, 10, yPosition);
+                yPosition += 10; // Espacio entre líneas
+            }
+
+            // Guardar el PDF con el nombre del manual
+            doc.save(`${title}.pdf`);
+        }
+    </script>
+
+</body>
+</html>
